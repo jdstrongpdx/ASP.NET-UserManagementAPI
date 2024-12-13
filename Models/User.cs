@@ -5,10 +5,9 @@ public class User
     public int Id { get; set; }
 
     [Required]
-    [MaxLength(100)]
     public required string Name { get; set; }
 
     [Required]
-    [EmailAddress]
+    [EmailAddress(ErrorMessage = "Invalid email address")]
     public required string Email { get; set; }
 }

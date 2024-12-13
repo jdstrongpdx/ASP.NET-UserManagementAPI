@@ -44,15 +44,9 @@
    - Return consistent JSON error responses:
      - Example: `{ "error": "Internal server error." }`.
 
-3. **Authentication Middleware**:
-   - Validate tokens from incoming requests.
-   - Allow access only for requests with valid tokens.
-   - Return `401 Unauthorized` for invalid tokens.
-
-4. **Middleware Configuration**:
+3. **Middleware Configuration**:
    - Configure the middleware pipeline in the following order:
      1. Error-handling middleware.
-     2. Authentication middleware.
      3. Logging middleware.
 
 ---
@@ -63,16 +57,13 @@
 2. **Middleware Testing**:
    - Test logging middleware by sending requests and verifying logs.
    - Test error-handling middleware by simulating exceptions.
-   - Test authentication middleware with valid and invalid tokens.
 
 ---
 
 ## Security and Compliance
-1. **Token-Based Authentication**:
-   - Secure API endpoints using token-based authentication.
-2. **Standardized Responses**:
+1. **Standardized Responses**:
    - Ensure all endpoints follow a consistent error-response format.
-3. **Auditing**:
+2. **Auditing**:
    - Maintain comprehensive logs of all incoming requests and outgoing responses.
 
 ---

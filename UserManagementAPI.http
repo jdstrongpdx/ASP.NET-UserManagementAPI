@@ -1,6 +1,134 @@
-@UserManagementAPI_HostAddress = http://localhost:5010
+@baseUrl = localhost
+@port = 5010
 
-GET {{UserManagementAPI_HostAddress}}/weatherforecast/
-Accept: application/json
+### Create User - Valid Input
+POST http://{{baseUrl}}:{{port}}/api/users
+Content-Type: application/json
 
-###
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com"
+}
+
+# Expected outcome: 
+# - Status code 201 (Created)
+# - The response should include the user's name and email.
+# - The user "John Doe" should be created successfully.
+
+### Create User - Invalid Input (Empty Name)
+POST http://{{baseUrl}}:{{port}}/api/users
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "invalid-email@example.com"
+}
+
+# Expected outcome: 
+# - Status code 400 (Bad Request)
+# - Error message indicating that the "name" is required.
+# - The email should also be validated and the format should be invalid.
+
+### Create User - Invalid Input (Invalid Email Format)
+POST http://{{baseUrl}}:{{port}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Jane Doe",
+  "email": "jane.doe@invalid"
+}
+
+# Expected outcome:
+# - Status code 400 (Bad Request)
+# - Error message indicating the email is not in a valid format.
+
+### Get All Users (Multiple Users)
+GET http://{{baseUrl}}:{{port}}/api/users
+
+# Expected outcome:
+# - Status code 200 (OK)
+# - The response should return an array of users.
+# - The number of users should be greater than 0 if any users are created previously.
+
+### Get User by ID - User Found
+GET http://{{baseUrl}}:{{port}}/api/users/1
+
+# Expected outcome:
+# - Status code 200 (OK)
+# - The response should contain the user with ID 1.
+# - The user data should match the previously created user "John Doe".
+
+### Get User by ID - User Not Found
+GET http://{{baseUrl}}:{{port}}/api/users/9999
+
+# Expected outcome:
+# - Status code 404 (Not Found)
+# - Error message indicating that the user was not found.
+
+### Update User - Valid Data
+PUT http://{{baseUrl}}:{{port}}/api/users/1
+Content-Type: application/json
+
+{
+  "name": "John Doe Updated",
+  "email": "john.doe.updated@example.com"
+}
+
+# Expected outcome:
+# - Status code 200 (OK)
+# - The response should include the updated name and email.
+# - The user with ID 1 should have its details updated to "John Doe Updated".
+
+### Update User - Invalid Data (Empty Name)
+PUT http://{{baseUrl}}:{{port}}/api/users/1
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "john.doe.updated@example.com"
+}
+
+# Expected outcome:
+# - Status code 400 (Bad Request)
+# - Error message indicating that the "name" is required.
+
+### Update User - Invalid Data (Invalid Email Format)
+PUT http://{{baseUrl}}:{{port}}/api/users/1
+Content-Type: application/json
+
+{
+  "name": "John Doe Updated",
+  "email": "john.doe.updated@example"
+}
+
+# Expected outcome:
+# - Status code 400 (Bad Request)
+# - Error message indicating the email is not in a valid format.
+
+### Delete User - Valid ID
+DELETE http://{{baseUrl}}:{{port}}/api/users/1
+
+# Expected outcome:
+# - Status code 204 (No Content)
+# - The user with ID 1 should be deleted successfully.
+# - Subsequent GET request for user ID 1 should return a 404 (Not Found).
+
+### Delete User - Invalid ID
+DELETE http://{{baseUrl}}:{{port}}/api/users/9999
+
+# Expected outcome:
+# - Status code 404 (Not Found)
+# - Error message indicating that the user was not found.
+
+### Create User - Empty Email
+POST http://{{baseUrl}}:{{port}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": ""
+}
+
+# Expected outcome:
+# - Status code 400 (Bad Request)
+# - Error message indicating that the email is required.

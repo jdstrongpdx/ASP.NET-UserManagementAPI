@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/users")]
 public class UserController : ControllerBase
 {
     private static readonly List<User> Users = new List<User>();
@@ -30,12 +30,16 @@ public class UserController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult UpdateUser(int id, [FromBody] User updatedUser)
     {
+        if (!ModelState.IsValid) return BadRequest(ModelState); // Validate the model first
+
         var user = Users.FirstOrDefault(u => u.Id == id);
         if (user == null) return NotFound(new { error = "User not found" });
 
         user.Name = updatedUser.Name;
         user.Email = updatedUser.Email;
-        return NoContent();
+
+        // Return 200 OK with the updated user data
+        return Ok(user);
     }
 
     [HttpDelete("{id}")]
