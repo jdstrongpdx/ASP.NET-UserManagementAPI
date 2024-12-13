@@ -1,0 +1,51 @@
+# Visual Studio
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Core
+bin/
+obj/
+out/
+wwwroot/
+
+# Rider/JetBrains
+.idea/
+*.idea/
+
+# Logs and database
+*.log
+*.nlog
+*.sql
+*.sqlite
+
+# Environment variables
+.env
+.env.*
+
+# Runtime files
+*.pid
+*.pid.lock
+
+# ASP.NET Scaffolding
+.scaffolding
+
+# Backup files
+*.bak
+*.old
+*.backup
+*~$*
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+*.config.json
+
+# Packages
+*.nuget/
+*.nupkg
+packages/
